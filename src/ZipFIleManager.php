@@ -1,5 +1,5 @@
 <?php
-namespace Hezehua\EncryptCompress;
+namespace Hhhzuo\EncryptCompress;
 
 class ZipFIleManager
 {

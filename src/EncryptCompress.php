@@ -2,6 +2,8 @@
 namespace Hezehua\EncryptCompress;
 
 
+use phpDocumentor\Reflection\Types\Integer;
+
 class  EncryptCompress
 {
     //包含数字

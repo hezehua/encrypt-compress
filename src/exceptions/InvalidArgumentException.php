@@ -5,7 +5,7 @@
  * Date: 2019-07-12
  * Time: 19:06
  */
-namespace Hhhzua\EncryptCompress;
+namespace Hezehua\EncryptCompress;
 
 class InvalidArgumentException extends \Exception
 {
