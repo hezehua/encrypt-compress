@@ -1,0 +1,24 @@
+{
+    "name": "hhhzua/encrypt-compress",
+    "description": "An Encryption Compression Management Tool",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hhhzua",
+            "email": "1197265347@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hhhzua\\EncryptCompress\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hhhzua\\EncryptCompress\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
