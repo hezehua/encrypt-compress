@@ -1,8 +1,6 @@
 <?php
-namespace Hhhzua\EncryptCompress;
+namespace Hezehua\EncryptCompress;
 
-
-use phpDocumentor\Reflection\Types\Integer;
 
 class  EncryptCompress
 {

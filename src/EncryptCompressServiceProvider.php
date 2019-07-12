@@ -1,6 +1,6 @@
 <?php
 
-namespace Hhhzua\EncryptCompress;
+namespace Hezehua\EncryptCompress;
 
 use Illuminate\Support\ServiceProvider;
 
