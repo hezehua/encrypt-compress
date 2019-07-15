@@ -43,7 +43,7 @@ class ZipCompress
 
         if($password)
         {
-            return `zip --password  {$password}  {$output_file} {$origin_file}`;
+            return `zip --password  "$password"  {$output_file} {$origin_file}`;
         }
 
         return `zip {$output_file}  {$origin_file}`;

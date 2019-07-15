@@ -1,11 +1,9 @@
 <?php
 namespace Hezehua\EncryptCompress;
 
-
-use phpDocumentor\Reflection\Types\Integer;
-
 class  EncryptCompress
 {
+
     //包含数字
     const RULE_DIGIT = 1;
     //包含字母
@@ -14,6 +12,8 @@ class  EncryptCompress
     const RULE_SPECIAL = 4;
     //随机
     const RULE_RANDOM = 8;
+    //默认
+    const DEFAULT_RULE_RANDOM = self::RULE_RANDOM;
 
     //文件路径
     public $origin_file;
@@ -52,6 +52,13 @@ class  EncryptCompress
         ['~','!','@','#','$','%','^','&','*','(',')','_','+',',','.',';',':','[',']','{','}','\\','|','`','"','\'']
     ];
 
+    //规则到字符列表的映射
+    public $rule_character_mapping = [
+        self::RULE_DIGIT=>0,
+        self::RULE_LETTER=>1,
+        self::RULE_SPECIAL=>2
+    ];
+
     /**
      * EncryptCompress constructor.
      * @param $file_path
@@ -60,15 +67,26 @@ class  EncryptCompress
      * @param int $limit
      * @param null $expire_at
      */
-    public function __construct(string $origin_file, string $output_path, $rule = 0, $length = 6, $limit = 1, $expire_at = null, $num = 1)
+    public function __construct(string $origin_file, string $output_path, $rule = 1, $length = 6, $limit = 1, $expire_at = null, $num = 1)
     {
         $this->origin_file = $origin_file;
         $this->length = $length;
+        if(!in_array($rule, self::getRuleList()))
+        {
+            $rule = self::DEFAULT_RULE_RANDOM;
+        }
         $this->rule = $rule;
         $this->limit = $limit;
         $this->expire_at = $expire_at;
         $this->output_path = $output_path;
         $this->num = $num;
+    }
+
+    public static function getRuleList()
+    {
+        $rule_list = [self::RULE_SPECIAL,self::RULE_LETTER, self::RULE_DIGIT, self::RULE_RANDOM];
+        sort($rule_list);
+        return $rule_list;
     }
 
     public function test()
@@ -166,7 +184,7 @@ class  EncryptCompress
 
         ZipCompress::zip($this->origin_file, $output_file, $password);
 
-        $this->zip_file[] = $output_file;
+        $this->zip_file[] = [$output_file,$password];
     }
 
 
@@ -210,22 +228,24 @@ class  EncryptCompress
     private function setPasword()
     {
         $password_arr = [];
-        $rule_arr = array_reverse(str_split(decbin($this->rule)));
+        $rule_arr = array_reverse(str_split(sprintf('%04d',decbin($this->rule))));
         $indexs = [];
+
         foreach ($rule_arr as $k=>$item)
         {
             if($item)
             {
                 //数字
                 $indexs[] = $k;
-                if($k == self::RULE_RANDOM)
+                if($k == 3)
                 {
-                    $indexs = [self::RULE_DIGIT, self::RULE_LETTER, self::RULE_SPECIAL];
+                    $indexs = [0,1,2];
                 }
             }
         }
 
         $length = $this->length;
+
         while($length --)
         {
             array_push($password_arr, $this->getRandomChat($indexs));
