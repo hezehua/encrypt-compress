@@ -1,6 +1,9 @@
 <?php
 namespace Hezehua\EncryptCompress;
 
+
+use phpDocumentor\Reflection\Types\Integer;
+
 class  EncryptCompress
 {
 
@@ -37,7 +40,7 @@ class  EncryptCompress
     public $attach_file;
 
     //压缩后的文件
-    public $zip_file = [];
+    public $zip_files = [];
 
     //是否加密
     public $is_encrypt = true;
@@ -184,7 +187,7 @@ class  EncryptCompress
 
         ZipCompress::zip($this->origin_file, $output_file, $password);
 
-        $this->zip_file[] = [$output_file,$password];
+        $this->zip_files[] = [$output_file,$password];
     }
 
 
@@ -194,7 +197,7 @@ class  EncryptCompress
      */
     public function isValid()
     {
-        foreach ($this->zip_file as $file)
+        foreach ($this->zip_files as $file)
         {
             if(!file_exists($file))
             {
